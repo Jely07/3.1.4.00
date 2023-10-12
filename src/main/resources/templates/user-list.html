@@ -13,15 +13,19 @@
     </tr>
     <tr th:each="user : ${users}">
         <td th:utext="${user.id}">id</td>
-        <td th:utext="${user.username}">name</td>
-        <td th:utext="${user.surname}">surname</td>
-        <td th:utext="${user.password}">surname</td>
-        <td th:utext="${user.salary}">surname</td>
+        <td th:utext="${user.username}">Username</td>
+        <td th:utext="${user.surname}">Surname</td>
+        <td th:utext="${user.password}">Password</td>
+        <td th:utext="${user.salary}">Salary</td>
+        <td th:utext="${user.roles}">Roles</td>
         <td><a th:href="@{/admin/user-update/{id}(id=${user.id})}">Edit</a></td>
         <td><a th:href="@{/admin/user-delete/{id}(id=${user.id})}">Delete</a></td>
     </tr>
 </table>
 <br/>
 <a href="/admin/user-create">Create new User</a>
+<br><br>
+<a th:href="@{/logout}">Logout</a>
+
 </body>
 </html>

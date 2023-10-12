@@ -7,19 +7,22 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import ru.kata.spring.boot_security.demo.model.Role;
 import ru.kata.spring.boot_security.demo.model.User;
+import ru.kata.spring.boot_security.demo.repository.RoleRepository;
 import ru.kata.spring.boot_security.demo.service.UserService;
 
 import java.util.List;
-import java.util.Optional;
 
 @Controller
 @RequestMapping("/admin")
 public class UserController {
     private final UserService userService;
+    private final RoleRepository roleRepository;
 
-    public UserController(UserService userService) {
+    public UserController(UserService userService, RoleRepository roleRepository) {
         this.userService = userService;
+        this.roleRepository = roleRepository;
     }
 
     @GetMapping("/users")
@@ -30,7 +33,9 @@ public class UserController {
     }
     @GetMapping("/user-create")
     public String createUserForm(User user,Model model){
+        List<Role> roles =roleRepository.findAll();
         model.addAttribute("user",user);
+        model.addAttribute("roles",roles);
         return "user-create";
     }
     @PostMapping("/user-create")
@@ -45,9 +50,10 @@ public class UserController {
     }
     @GetMapping("/user-update/{id}")
     public String updateUser(@PathVariable("id")Long id,Model model){
-        Optional<User> user;
-        user = userService.findById(id);
+        User user = userService.getById(id);
+        List<Role> roles =roleRepository.findAll();
         model.addAttribute("user",user);
+        model.addAttribute("roles",roles);
         return "/user-update";
     }
 

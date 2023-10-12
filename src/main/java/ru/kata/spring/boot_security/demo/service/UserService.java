@@ -14,7 +14,6 @@ import ru.kata.spring.boot_security.demo.repository.UserRepository;
 
 import java.util.Collection;
 import java.util.List;
-import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -25,8 +24,8 @@ public class UserService implements UserDetailsService {
         this.userRepository = userRepository;
     }
     public User findByUsername(String username){ return userRepository.findByUsername(username);}
-    public Optional<User> findById(Long id){
-        return userRepository.findById(id);
+    public User getById(Long id){
+        return userRepository.getById(id);
     }
     public List<User> findAll(){
         return userRepository.findAll();
